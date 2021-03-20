@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+# Meander
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Installation Required
+
+In the project directory, to install all of the required dependencies, run:
+
+### `npm install`
 
 ## Available Scripts
 

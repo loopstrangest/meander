@@ -1,0 +1,14 @@
+Project Meander Criteria:
+
+Description:
+Tessellated image/wallpaper generator
+
+Code stack:
+HTML, CSS, React / redux, Best JS shapes library no money can buy.
+
+Features:
+- Sliders for color, size, shape, rotation speed, border thickness
+- Inputs to change the NUMBER OF colors/shapes, canvas styles
+- Download wallpapers for various devices
+- Share wallpapers on social media – custom URLs
+- Auto-display random wallpaper on page visit

@@ -1,0 +1,39 @@
+
+
+*~*~*~*~*~*~*~*~*
+
+03.11.21:
+Researched JS shape tiling packages
+Took notes on TactileJS
+
+03.12.21:
+Figured out how to import TactileJS without npm (not registered)
+Displayed a p5 canvas
+Get example test tiling to display
+
+03.13.21:
+Got TilerTheCreator's TestTiler to work
+Displayed TestTiler polygons with p5 drawing package
+Displayed my own tiling with TilerTheCreator
+
+03.15.21:
+Added favicon
+Created input to change prototile shape by one pair of vertices
+
+03.15.21:
+Added a 2D slider to manipulate a pair of tile vertices
+
+03.18.21:
+Accessed prototile parameters
+Generated dynamic number of sliders to match prototile's degrees of freedom
+
+03.19.21:
+Created react app and deleted extraneous files
+
+03.20.21:
+Placed sliders in a menu with opaque background
+Recreated canvas + param input + button functionality
+Made canvas always take up full window size
+Transfer project to react app
+Created a github project
+Linked react app to github project

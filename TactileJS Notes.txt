@@ -1,0 +1,23 @@
+From README.md:
+
+General:
+Made by Craig S. Kaplan
+Caplan utilizes P5.js for a demo
+81 interesting tiling types
+Each has 0 - 6 free parameters
+
+Imports:
+Class IsohedralTiling describes a specific tiling and its prototile
+Array tilingTypes with length numTypes contains the 81 tiling types
+getParameters and setParameters to access the positions of the tiling vertices
+
+Edges:
+S edges are identical after 180 degree rotation
+U edges are identical after reflecting across one axis
+I edges are identical after rotation and reflection (only I - straight line - does this)
+J edges can be a path of any shape
+An edge shape starts at (0, 0) and ends at (1, 0)
+Some tricky stuff regarding U and S edges
+
+Laying Tiles:
+Iterator-based approach for filling a region of a plane with prototiles
