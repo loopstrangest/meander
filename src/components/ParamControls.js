@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateParameters } from "../actions/tileAction";
 
 import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUndoAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 //styling and animation
 import styled from "styled-components";
@@ -19,10 +23,11 @@ const ParamControls = () => {
     type,
     tiling,
   } = useSelector((state) => state.tile);
+  const reset = <FontAwesomeIcon icon={faUndoAlt} />;
 
   const resetParam = (e) => {
     var paramButtons = document.querySelectorAll(".paramReset");
-    var buttonIndex = Array.from(paramButtons).indexOf(e.target);
+    var buttonIndex = Array.from(paramButtons).indexOf(e.currentTarget);
     console.log(buttonIndex);
     var paramSliders = document.querySelectorAll(".paramSlider");
     var paramResetValue = defaultParameters[buttonIndex];
@@ -47,7 +52,7 @@ const ParamControls = () => {
           type="range"
           min="0"
           max="1"
-          step="0.001"
+          step="0.01"
           defaultValue={param}
           onChange={handleChange}
           class="paramSlider"
@@ -60,7 +65,7 @@ const ParamControls = () => {
           type="button"
           key={"paramReset" + index}
         >
-          reset
+          {reset}
         </button>
       </div>
     );
@@ -74,13 +79,14 @@ const StyledParamControls = styled(motion.div)`
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
+  margin: 0px 6px;
 
   .paramContainer {
     display: flex;
-    width: 225px;
+    width: 200px;
     flex-direction: row;
     justify-content: space-between;
-    margin: 5px 10px;
+    margin: 5px 12px;
   }
 
   .paramSlider {
@@ -99,10 +105,10 @@ const StyledParamControls = styled(motion.div)`
     border: none;
     color: white;
     background-color: black;
-    padding: 2px 5px;
+    padding: 5px 5px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: flex;
     font-size: 20px;
     cursor: pointer;
     border-radius: 5px;

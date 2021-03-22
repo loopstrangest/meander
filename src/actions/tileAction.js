@@ -27,3 +27,28 @@ export const updateParameters = (
     },
   });
 };
+
+export const setNewTiling = (width, height, scaleFactor, type) => async (
+  dispatch
+) => {
+  var prototile = new TilerTheCreator({
+    width: width,
+    height: height,
+    scale_factor: scaleFactor,
+    type: type,
+  });
+  var tiling = prototile.getCurrentTiling();
+  var defaultParameters = tiling.getParameters();
+  prototile.readyToTile();
+  var polygons = prototile.getPolygonsFromRegion();
+
+  dispatch({
+    type: "SET_NEW_TILING",
+    payload: {
+      type: type,
+      defaultParameters: defaultParameters,
+      tiling: tiling,
+      polygons: polygons,
+    },
+  });
+};

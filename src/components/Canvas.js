@@ -22,12 +22,14 @@ const Canvas = () => {
     p5.strokeWeight(4);
 
     polygons.forEach((polygon, pIndex) => {
-      switch (pIndex % 6) {
+      //p5.fill(0, 0, 0, 0);
+
+      switch (pIndex % 2) {
         case 0:
           p5.fill("red");
           break;
         case 1:
-          p5.fill("orange");
+          p5.fill("blue");
           break;
         case 2:
           p5.fill("yellow");
@@ -52,9 +54,21 @@ const Canvas = () => {
       p5.vertex(polygon[0][0], polygon[0][1]);
       p5.endShape();
     });
-    //p5Canvas.noLoop();
+    //p5.noLoop();
   };
-  return <Sketch setup={setup} draw={draw} className="canvas" />;
+  return (
+    <StyledCanvas>
+      {<Sketch setup={setup} draw={draw} className="canvas" />}
+    </StyledCanvas>
+  );
 };
+
+const StyledCanvas = styled(motion.div)`
+  background-color: purple;
+
+  .canvas {
+    background-color: (0, 0, 0, 0);
+  }
+`;
 
 export default Canvas;
