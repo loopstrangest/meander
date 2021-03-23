@@ -1,5 +1,6 @@
 
 
+
 *~*~*~*~*~*~*~*~*
 
 03.11.21:
@@ -43,3 +44,7 @@ Changed slider step to 0.01
 Selected subset of 81 tilings for user selection
 Added option to change display tiling to any of the subset tilings
 Added menu icons
+
+03.23.21:
+Added border width selection
+Added fill style selection: solid/gradient

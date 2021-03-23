@@ -5,9 +5,7 @@ import { updateParameters } from "../actions/tileAction";
 
 import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUndoAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 
 //styling and animation
 import styled from "styled-components";
@@ -83,7 +81,7 @@ const StyledParamControls = styled(motion.div)`
 
   .paramContainer {
     display: flex;
-    width: 200px;
+    width: 195px;
     flex-direction: row;
     justify-content: space-between;
     margin: 5px 12px;
@@ -103,8 +101,8 @@ const StyledParamControls = styled(motion.div)`
 
   .paramReset {
     border: none;
-    color: white;
-    background-color: black;
+    color: black;
+    background: none;
     padding: 5px 5px;
     text-align: center;
     text-decoration: none;
@@ -115,8 +113,7 @@ const StyledParamControls = styled(motion.div)`
   }
 
   .paramReset:hover {
-    color: black;
-    background-color: white;
+    filter: invert(1);
   }
 `;
 

@@ -28,7 +28,7 @@ export const updateParameters = (
   });
 };
 
-export const setNewTiling = (width, height, scaleFactor, type) => async (
+export const updateTiling = (width, height, scaleFactor, type) => async (
   dispatch
 ) => {
   var prototile = new TilerTheCreator({
@@ -43,12 +43,30 @@ export const setNewTiling = (width, height, scaleFactor, type) => async (
   var polygons = prototile.getPolygonsFromRegion();
 
   dispatch({
-    type: "SET_NEW_TILING",
+    type: "SET_TILING",
     payload: {
       type: type,
       defaultParameters: defaultParameters,
       tiling: tiling,
       polygons: polygons,
+    },
+  });
+};
+
+export const updateBorder = (borderWidth) => async (dispatch) => {
+  dispatch({
+    type: "SET_BORDER_WIDTH",
+    payload: {
+      borderWidth: borderWidth,
+    },
+  });
+};
+
+export const updateFillStyle = (fillStyle) => async (dispatch) => {
+  dispatch({
+    type: "SET_FILL_STYLE",
+    payload: {
+      fillStyle: fillStyle,
     },
   });
 };

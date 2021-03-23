@@ -30,6 +30,8 @@ const initialState = {
   defaultParameters: initialPrototile.getCurrentTiling().getParameters(),
   tiling: initialPrototile.getCurrentTiling(),
   polygons: initialPolygons,
+  borderWidth: 0,
+  fillStyle: "solid",
 };
 
 const tileReducer = (state = initialState, action) => {
@@ -40,7 +42,7 @@ const tileReducer = (state = initialState, action) => {
         tiling: action.payload.tiling,
         polygons: action.payload.polygons,
       };
-    case "SET_NEW_TILING":
+    case "SET_TILING":
       return {
         ...state,
         type: action.payload.type,
@@ -48,7 +50,16 @@ const tileReducer = (state = initialState, action) => {
         tiling: action.payload.tiling,
         polygons: action.payload.polygons,
       };
-
+    case "SET_BORDER_WIDTH":
+      return {
+        ...state,
+        borderWidth: action.payload.borderWidth,
+      };
+    case "SET_FILL_STYLE":
+      return {
+        ...state,
+        fillStyle: action.payload.fillStyle,
+      };
     default:
       return { ...state };
   }

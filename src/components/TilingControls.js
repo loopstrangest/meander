@@ -1,7 +1,7 @@
 //redux and routes
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setNewTiling } from "../actions/tileAction";
+import { updateTiling } from "../actions/tileAction";
 
 import {
   numTypes,
@@ -18,12 +18,16 @@ import { motion } from "framer-motion";
 
 const TilingControls = () => {
   const dispatch = useDispatch();
-  const { width, height, scaleFactor, selectedTypes } = useSelector((state) => state.tile);
+  const { width, height, scaleFactor, selectedTypes } = useSelector(
+    (state) => state.tile
+  );
   const { allPolygons, allNumParameters } = useSelector((state) => state.menu);
 
   const handleNewTiling = (e) => {
     var tilingIndex = e.currentTarget.className.replace("canvasContainer", "");
-    dispatch(setNewTiling(width, height, scaleFactor, selectedTypes[tilingIndex]));
+    dispatch(
+      updateTiling(width, height, scaleFactor, selectedTypes[tilingIndex])
+    );
   };
   var canvasSize = 100;
 
@@ -53,7 +57,7 @@ const TilingControls = () => {
             key={index}
             className={"canvasContainer" + index}
             onClick={handleNewTiling}
-            style={{width: 100, height: 100}}
+            style={{ width: 100, height: 100 }}
           >
             <Sketch
               setup={setup}
@@ -78,15 +82,15 @@ const StyledTilingControls = styled(motion.div)`
   justify-content: center;
   overflow: auto;
 
-  canvas{
-      cursor: pointer;
+  canvas {
+    cursor: pointer;
   }
 
-  div[class^='canvasContainer'] {
+  div[class^="canvasContainer"] {
     margin: 3px;
     border-radius: 10px;
   }
-  div[class^='canvasContainer']:hover {
+  div[class^="canvasContainer"]:hover {
     filter: invert(1);
   }
 `;
