@@ -5,6 +5,19 @@ import {
 
 var allPolygons = [];
 var allNumParameters = [];
+var allPolygonShifts = {
+  3: [],
+  6: [],
+  19: [],
+  22: [],
+  25: [],
+  26: [],
+  28: [],
+  43: [],
+  49: [],
+  69: [],
+  75: [],
+};
 
 var selectedTypes = [3, 6, 19, 22, 25, 26, 28, 43, 49, 69, 75];
 
@@ -19,12 +32,41 @@ for (var index = 0; index < selectedTypes.length; index++) {
   prototile.readyToTile();
   var polygons = prototile.getPolygonsFromRegion();
   allPolygons.push(polygons);
+
+  //Get all num parameters
   allNumParameters.push(prototile.getCurrentTiling().getParameters().length);
+
+  //Get all tiling shifts: 2 per parameter
+  var tiling = prototile.getCurrentTiling();
+  var parameters = tiling.getParameters();
+  parameters.forEach((p, pIndex) => {
+    var newLeftPrototile = { ...prototile };
+    var newRightPrototile = { ...newLeftPrototile };
+    var parameterLeftShift = [...parameters];
+    var parameterRightShift = [...parameterLeftShift];
+    var leftParameter = parameters[pIndex] / 2;
+    var rightParameter = (1 + parameters[pIndex]) / 2;
+    parameterLeftShift.splice(pIndex, 1, leftParameter);
+    parameterRightShift.splice(pIndex, 1, rightParameter);
+
+    newLeftPrototile.getCurrentTiling().setParameters(parameterLeftShift);
+    newLeftPrototile.readyToTile();
+    allPolygonShifts[selectedTypes[index]].push([
+      newLeftPrototile.getPolygonsFromRegion(),
+    ]);
+
+    newRightPrototile.getCurrentTiling().setParameters(parameterRightShift);
+    newRightPrototile.readyToTile();
+    allPolygonShifts[selectedTypes[index]].push([
+      newRightPrototile.getPolygonsFromRegion(),
+    ]);
+  });
 }
 
 const initialState = {
   tab: "params",
   allPolygons: allPolygons,
+  allPolygonShifts: allPolygonShifts,
   allNumParameters: allNumParameters,
 };
 

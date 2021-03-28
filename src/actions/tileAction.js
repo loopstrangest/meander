@@ -70,3 +70,13 @@ export const updateFillStyle = (fillStyle) => async (dispatch) => {
     },
   });
 };
+
+export const updateColor = (color, index) => async (dispatch) => {
+  dispatch({
+    type: "SET_COLOR",
+    payload: {
+      color: color,
+      index: index,
+    },
+  });
+};

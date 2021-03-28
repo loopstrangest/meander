@@ -1,4 +1,4 @@
-
+Figure out how to make noise-and-gradientesque gradients
 
 
 *~*~*~*~*~*~*~*~*
@@ -48,3 +48,11 @@ Added menu icons
 03.23.21:
 Added border width selection
 Added fill style selection: solid/gradient
+
+03.26.21:
+Added blur
+Added color selection
+Added random solid fill
+
+03.28.21:
+Added canvases to preview effects of each parameter slider
