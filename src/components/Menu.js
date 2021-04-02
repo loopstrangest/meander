@@ -73,6 +73,7 @@ const Menu = () => {
 };
 
 const StyledMenu = styled(motion.div)`
+  z-index: 2;
   position: absolute;
   left: 20vw;
   width: 60vw;

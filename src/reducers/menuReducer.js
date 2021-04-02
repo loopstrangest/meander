@@ -1,7 +1,4 @@
-import {
-  numTypes,
-  TilerTheCreator,
-} from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
+import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
 
 var allPolygons = [];
 var allNumParameters = [];

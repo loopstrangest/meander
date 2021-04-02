@@ -5,7 +5,8 @@ export const updateParameters = (
   height,
   scaleFactor,
   type,
-  parameters
+  parameters,
+  colors
 ) => async (dispatch) => {
   var prototile = new TilerTheCreator({
     width: width,
@@ -24,13 +25,19 @@ export const updateParameters = (
     payload: {
       tiling: tiling,
       polygons: polygons,
+      randomSolidFill: getSolidFill(polygons, colors),
     },
   });
 };
 
-export const updateTiling = (width, height, scaleFactor, type) => async (
-  dispatch
-) => {
+export const updateTiling = (
+  width,
+  height,
+  scaleFactor,
+  type,
+  typeOptions,
+  colors
+) => async (dispatch) => {
   var prototile = new TilerTheCreator({
     width: width,
     height: height,
@@ -41,6 +48,13 @@ export const updateTiling = (width, height, scaleFactor, type) => async (
   var defaultParameters = tiling.getParameters();
   prototile.readyToTile();
   var polygons = prototile.getPolygonsFromRegion();
+  console.log(polygons[0]);
+
+  var randomGradient =
+    typeOptions[Math.floor(Math.random() * typeOptions.length)];
+  if (Math.floor(Math.random() * 2) == 1) {
+    randomGradient.reverse();
+  }
 
   dispatch({
     type: "SET_TILING",
@@ -49,6 +63,8 @@ export const updateTiling = (width, height, scaleFactor, type) => async (
       defaultParameters: defaultParameters,
       tiling: tiling,
       polygons: polygons,
+      linearGradient: randomGradient,
+      randomSolidFill: getSolidFill(polygons, colors),
     },
   });
 };
@@ -71,12 +87,68 @@ export const updateFillStyle = (fillStyle) => async (dispatch) => {
   });
 };
 
-export const updateColor = (color, index) => async (dispatch) => {
+export const updateColor = (polygons, colors, newColor, index) => async (
+  dispatch
+) => {
+  var newColors = colors
+    .slice(0, index)
+    .concat([newColor], colors.slice(index + 1));
+
   dispatch({
     type: "SET_COLOR",
     payload: {
-      color: color,
-      index: index,
+      colors: newColors,
+      randomSolidFill: getSolidFill(polygons, newColors),
     },
   });
+};
+
+export const updateLinearGradient = (typeOptions) => async (dispatch) => {
+  var randomGradient =
+    typeOptions[Math.floor(Math.random() * typeOptions.length)];
+  if (Math.floor(Math.random() * 2) == 1) {
+    randomGradient.reverse();
+  }
+
+  dispatch({
+    type: "SET_LINEAR_GRADIENT",
+    payload: {
+      linearGradient: randomGradient,
+    },
+  });
+};
+
+export const updateRandomSolidFill = (polygons, colors) => async (dispatch) => {
+  dispatch({
+    type: "SET_RANDOM_SOLID_FILL",
+    payload: {
+      randomSolidFill: getSolidFill(polygons, colors),
+    },
+  });
+};
+
+export const updateBlurValue = (blur) => async (dispatch) => {
+  dispatch({
+    type: "SET_BLUR",
+    payload: {
+      blur: blur,
+    },
+  });
+};
+
+export const updateGrainValue = (grain) => async (dispatch) => {
+  dispatch({
+    type: "SET_GRAIN",
+    payload: {
+      grain: grain,
+    },
+  });
+};
+
+const getSolidFill = (polygons, colors) => {
+  var randomSolidFill = [];
+  polygons.forEach((polygon) => {
+    randomSolidFill.push(colors[Math.floor(Math.random() * colors.length)]);
+  });
+  return randomSolidFill;
 };

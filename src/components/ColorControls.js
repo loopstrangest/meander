@@ -1,13 +1,13 @@
 //redux and routes
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateFillStyle,
-  updateBlur,
   updateColor,
+  updateRandomSolidFill,
+  updateLinearGradient,
+  updateBlurValue,
+  updateGrainValue,
 } from "../actions/tileAction";
-
-import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTint,
@@ -16,7 +16,9 @@ import {
   faPlus,
   faMinus,
   faRandom,
+  faBreadSlice,
 } from "@fortawesome/free-solid-svg-icons";
+import { createGrain } from "../canvas_modules/grained/grained.js";
 
 //styling and animation
 import styled from "styled-components";
@@ -24,7 +26,14 @@ import { motion } from "framer-motion";
 
 const ColorControls = () => {
   const dispatch = useDispatch();
-  const { colors } = useSelector((state) => state.tile);
+  const {
+    polygons,
+    colors,
+    linearGradientOptions,
+    type,
+    blur,
+    grain,
+  } = useSelector((state) => state.tile);
 
   const solid = <FontAwesomeIcon icon={faTint} />;
   const gradient = <FontAwesomeIcon icon={faWaveSquare} />;
@@ -32,12 +41,26 @@ const ColorControls = () => {
   const plusColor = <FontAwesomeIcon icon={faPlus} />;
   const minusColor = <FontAwesomeIcon icon={faMinus} />;
   const randomSolid = <FontAwesomeIcon icon={faRandom} />;
+  const bread = <FontAwesomeIcon icon={faBreadSlice} />;
+
+  var grainOptions = {
+    animate: false,
+    patternWidth: 100,
+    patternHeight: 100,
+    grainOpacity: 0,
+    grainDensity: 1,
+    grainWidth: 1,
+    grainHeight: 1,
+    grainChaos: 0.5,
+    grainSpeed: 0,
+  };
+  var canvasGrain = new createGrain();
 
   const addColor = () => {
     var colorInputs = document.querySelectorAll(".colorInput");
     var numColorInputs = colorInputs.length;
     if (numColorInputs < 6) {
-      dispatch(updateColor("#ffffff", numColorInputs));
+      dispatch(updateColor(polygons, colors, "#ffffff", numColorInputs));
     }
   };
 
@@ -45,6 +68,8 @@ const ColorControls = () => {
     var colorInputs = document.querySelectorAll(".colorInput");
     var numColorInputs = colorInputs.length;
     if (numColorInputs > 1) {
+      console.log(colors.slice(0, -1));
+      dispatch(updateRandomSolidFill(polygons, colors.slice(0, -1)));
       dispatch({ type: "REMOVE_COLOR" });
     }
   };
@@ -56,19 +81,38 @@ const ColorControls = () => {
     var s = new Option().style;
     s.color = colorValue;
     if (s.color !== "") {
-      console.log("match!");
-      dispatch(updateColor(colorValue, colorInputIndex));
+      dispatch(updateColor(polygons, colors, colorValue, colorInputIndex));
     }
+  };
+
+  const handleGrain = (e) => {
+    var grainSliderValue = document.querySelector(".grainSlider").value;
+    grainOptions.grainOpacity = Number(grainSliderValue);
+    canvasGrain.grained("grainOverlay", grainOptions);
+    dispatch(updateGrainValue(Number(grainSliderValue)));
   };
 
   const handleBlur = (e) => {
     var blurValue = document.querySelector(".blurSlider").value;
-    var canvas = document.querySelector(".canvas");
+    var canvas = document.querySelector(".tileCanvas");
     canvas.style.filter = `blur(${blurValue}px)`;
+    dispatch(updateBlurValue(Number(blurValue)));
   };
 
   const handleChange = (e) => {
     var fillStyle = e.currentTarget.id;
+    dispatch(updateFillStyle(fillStyle));
+  };
+
+  const handleRandomSolidChange = (e) => {
+    var fillStyle = e.currentTarget.id;
+    dispatch(updateRandomSolidFill(polygons, colors));
+    dispatch(updateFillStyle(fillStyle));
+  };
+
+  const handleGradientChange = (e) => {
+    var fillStyle = e.currentTarget.id;
+    dispatch(updateLinearGradient(linearGradientOptions[type]));
     dispatch(updateFillStyle(fillStyle));
   };
 
@@ -81,11 +125,15 @@ const ColorControls = () => {
         <div
           className="fillStyleOption"
           id="randomSolid"
-          onClick={handleChange}
+          onClick={handleRandomSolidChange}
         >
           {randomSolid}
         </div>
-        <div className="fillStyleOption" id="gradient" onClick={handleChange}>
+        <div
+          className="fillStyleOption"
+          id="gradient"
+          onClick={handleGradientChange}
+        >
           {gradient}
         </div>
       </div>
@@ -121,17 +169,27 @@ const ColorControls = () => {
           )}
         </div>
       </div>
-      <div class="blurContainer">
+      <div class="blurGrainContainer">
         <input
           type="range"
           min="0"
           max="10"
           step="0.2"
-          defaultValue="0"
+          defaultValue={blur}
           onChange={handleBlur}
           class="blurSlider"
         ></input>
         {glasses}
+        <input
+          type="range"
+          min="0"
+          max="0.5"
+          step="0.025"
+          defaultValue={grain}
+          onChange={handleGrain}
+          class="grainSlider"
+        ></input>
+        {bread}
       </div>
     </StyledColorControls>
   );
@@ -167,7 +225,7 @@ const StyledColorControls = styled(motion.div)`
     margin: auto;
   }
 
-  .blurContainer {
+  .blurGrainContainer {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -175,17 +233,12 @@ const StyledColorControls = styled(motion.div)`
     font-size: 20px;
   }
 
-  .blurSlider {
+  .blurSlider,
+  .grainSlider {
     cursor: pointer;
     background: none;
     padding-right: 10px;
-  }
-  .blurContainer {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: center;
-    font-size: 20px;
+    padding-left: 10px;
   }
 
   .colorsContainer {

@@ -21,6 +21,7 @@ const ParamControls = () => {
     defaultParameters,
     type,
     tiling,
+    colors,
   } = useSelector((state) => state.tile);
   const { allPolygonShifts } = useSelector((state) => state.menu);
   const reset = <FontAwesomeIcon icon={faUndoAlt} />;
@@ -42,7 +43,9 @@ const ParamControls = () => {
     paramSliders.forEach((slider) => {
       parameters.push(slider.value);
     });
-    dispatch(updateParameters(width, height, scaleFactor, type, parameters));
+    dispatch(
+      updateParameters(width, height, scaleFactor, type, parameters, colors)
+    );
   };
 
   let controls = [];

@@ -1,16 +1,10 @@
 //redux and routes
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTiling } from "../actions/tileAction";
 
-import {
-  numTypes,
-  TilerTheCreator,
-} from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
 import Sketch from "react-p5";
 
 //components
-import ParamControls from "../components/ParamControls";
 
 //styling and animation
 import styled from "styled-components";
@@ -18,15 +12,28 @@ import { motion } from "framer-motion";
 
 const TilingControls = () => {
   const dispatch = useDispatch();
-  const { width, height, scaleFactor, selectedTypes } = useSelector(
-    (state) => state.tile
-  );
+  const {
+    width,
+    height,
+    scaleFactor,
+    selectedTypes,
+    linearGradientOptions,
+    colors,
+  } = useSelector((state) => state.tile);
   const { allPolygons, allNumParameters } = useSelector((state) => state.menu);
 
   const handleNewTiling = (e) => {
     var tilingIndex = e.currentTarget.className.replace("canvasContainer", "");
+
     dispatch(
-      updateTiling(width, height, scaleFactor, selectedTypes[tilingIndex])
+      updateTiling(
+        width,
+        height,
+        scaleFactor,
+        selectedTypes[tilingIndex],
+        linearGradientOptions[selectedTypes[tilingIndex]],
+        colors
+      )
     );
   };
   var canvasSize = 100;

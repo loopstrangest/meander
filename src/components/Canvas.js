@@ -1,14 +1,12 @@
 //redux and routes
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTileParameters } from "../actions/tileAction";
-
+import quiltImage from "../quilt.jpg";
+import { updateRandomSolidFill } from "../actions/tileAction";
 //styling and animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
 //tile and canvas
-import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
 import Sketch from "react-p5";
 
 const Canvas = () => {
@@ -18,18 +16,17 @@ const Canvas = () => {
     height,
     polygons,
     borderWidth,
+    type,
+    scaleFactor,
     fillStyle,
+    tiling,
     colors,
+    image,
+    linearGradientOptions,
+    linearGradient,
+    randomSolidFill,
   } = useSelector((state) => state.tile);
-
-  var randomColorArray = [];
-
-  let fillRandomColorArray = () => {
-    polygons.forEach((e) => {
-      randomColorArray.push(colors[Math.floor(Math.random() * colors.length)]);
-    });
-    console.log(randomColorArray);
-  };
+  const dispatch = useDispatch();
 
   let getPolygonData = (arr) => {
     var minX, maxX, minY, maxY;
@@ -48,18 +45,32 @@ const Canvas = () => {
     return [centerX, centerY, smallestSide];
   };
 
-  let setup = (p5, parentClass) => {
-    let canvas = p5.createCanvas(width, height).parent(parentClass);
+  let quilt;
+  let testImage = new Image(50, 50);
+  testImage.src = quiltImage;
+
+  //PRELOAD
+  let preload = (p5) => {
+    quilt = p5.loadImage(quiltImage);
   };
+
+  //SETUP
+  let setup = (setup, parentClass) => {
+    let canvas = setup.createCanvas(width, height).parent(parentClass);
+    var randomFillArray = [];
+    polygons.forEach((polygon, pIndex) => {});
+  };
+
+  //DRAW
   let draw = (p5) => {
     p5.strokeWeight(borderWidth);
     p5.smooth();
 
     polygons.forEach((polygon, pIndex) => {
-      if (fillStyle == "gradient") {
-        randomColorArray = [];
+      if (fillStyle === "gradient") {
+        /*
         let polygonData = getPolygonData(polygon);
-        let gradient = p5.drawingContext.createRadialGradient(
+        let rgradient = p5.drawingContext.createRadialGradient(
           polygonData[0],
           polygonData[1],
           polygonData[2] * p5.noise(polygonData[0], polygonData[1]),
@@ -67,23 +78,25 @@ const Canvas = () => {
           polygonData[1],
           polygonData[2] / 4
         );
+        */
 
-        /*
-        let gradient = p5.drawingContext.createLinearGradient(
-          polygon[0][0],
-          polygon[0][1],
-          polygon[2][0],
-          polygon[2][1]
-        );*/
-        let c1 = p5.color(255, 0, 0);
-        let c2 = p5.color(0, 0, 255);
-        let c3 = p5.color(0, 255, 0);
-        gradient.addColorStop(0, c1.toString());
-        gradient.addColorStop(0.5, c2.toString());
-        gradient.addColorStop(1, c3.toString());
-        p5.drawingContext.fillStyle = gradient;
+        let p5LinearGradient = p5.drawingContext.createLinearGradient(
+          polygon[linearGradient[0]][0],
+          polygon[linearGradient[0]][1],
+          polygon[linearGradient[1]][0],
+          polygon[linearGradient[1]][1]
+        );
+
+        colors.forEach((color, colorIndex) => {
+          p5LinearGradient.addColorStop(
+            colorIndex / Math.max(1, colors.length - 1),
+            color
+          );
+        });
+
+        //Setting fillstyle
+        p5.drawingContext.fillStyle = p5LinearGradient;
       } else if (fillStyle === "solid") {
-        randomColorArray = [];
         switch (pIndex % colors.length) {
           case 0:
             p5.fill(colors[0]);
@@ -107,10 +120,7 @@ const Canvas = () => {
             p5.fill("lightblue");
         }
       } else if (fillStyle === "randomSolid") {
-        if (randomColorArray.length < 1) {
-          fillRandomColorArray();
-        }
-        p5.fill(randomColorArray[pIndex]);
+        p5.fill(randomSolidFill[pIndex]);
       }
 
       p5.beginShape();
@@ -123,14 +133,22 @@ const Canvas = () => {
     //p5.noLoop();
   };
   return (
-    <StyledCanvas>
-      {<Sketch setup={setup} draw={draw} className="canvas" />}
+    <StyledCanvas className="styledCanvas">
+      <div className="grainOverlay"></div>
+      {
+        <Sketch
+          preload={preload}
+          setup={setup}
+          draw={draw}
+          className="tileCanvas"
+        />
+      }
     </StyledCanvas>
   );
 };
 
 const StyledCanvas = styled(motion.div)`
-  .canvas {
+  .tileCanvas {
     background-color: (0, 0, 0, 0);
   }
 `;
