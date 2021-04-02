@@ -103,6 +103,16 @@ export const updateColor = (polygons, colors, newColor, index) => async (
   });
 };
 
+export const updateColorsFromURL = (polygons, colors) => async (dispatch) => {
+  dispatch({
+    type: "SET_COLOR",
+    payload: {
+      colors: colors,
+      randomSolidFill: getSolidFill(polygons, colors),
+    },
+  });
+};
+
 export const updateLinearGradient = (typeOptions) => async (dispatch) => {
   var randomGradient =
     typeOptions[Math.floor(Math.random() * typeOptions.length)];

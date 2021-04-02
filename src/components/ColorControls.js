@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   updateFillStyle,
   updateColor,
+  updateColorsFromURL,
   updateRandomSolidFill,
   updateLinearGradient,
   updateBlurValue,
@@ -15,6 +16,7 @@ import {
   faGlasses,
   faPlus,
   faMinus,
+  faCheck,
   faRandom,
   faBreadSlice,
 } from "@fortawesome/free-solid-svg-icons";
@@ -36,11 +38,12 @@ const ColorControls = () => {
   } = useSelector((state) => state.tile);
 
   const solid = <FontAwesomeIcon icon={faTint} />;
+  const randomSolid = <FontAwesomeIcon icon={faRandom} />;
   const gradient = <FontAwesomeIcon icon={faWaveSquare} />;
-  const glasses = <FontAwesomeIcon icon={faGlasses} />;
   const plusColor = <FontAwesomeIcon icon={faPlus} />;
   const minusColor = <FontAwesomeIcon icon={faMinus} />;
-  const randomSolid = <FontAwesomeIcon icon={faRandom} />;
+  const check = <FontAwesomeIcon icon={faCheck} />;
+  const glasses = <FontAwesomeIcon icon={faGlasses} />;
   const bread = <FontAwesomeIcon icon={faBreadSlice} />;
 
   var grainOptions = {
@@ -56,6 +59,16 @@ const ColorControls = () => {
   };
   var canvasGrain = new createGrain();
 
+  const handleFillStyleChange = (e) => {
+    var fillStyle = e.currentTarget.id;
+    if (fillStyle == "randomSolid") {
+      dispatch(updateRandomSolidFill(polygons, colors));
+    } else if (fillStyle == "gradient") {
+      dispatch(updateLinearGradient(linearGradientOptions[type]));
+    }
+    dispatch(updateFillStyle(fillStyle));
+  };
+
   const addColor = () => {
     var colorInputs = document.querySelectorAll(".colorInput");
     var numColorInputs = colorInputs.length;
@@ -68,7 +81,6 @@ const ColorControls = () => {
     var colorInputs = document.querySelectorAll(".colorInput");
     var numColorInputs = colorInputs.length;
     if (numColorInputs > 1) {
-      console.log(colors.slice(0, -1));
       dispatch(updateRandomSolidFill(polygons, colors.slice(0, -1)));
       dispatch({ type: "REMOVE_COLOR" });
     }
@@ -85,6 +97,25 @@ const ColorControls = () => {
     }
   };
 
+  const handleCoolors = (e) => {
+    var inputURL = document.querySelector(".coolorsInput").value;
+    var urlSplit = inputURL.split("/");
+    var urlColors = urlSplit[urlSplit.length - 1];
+    var colorsArray = urlColors.split("-");
+    var checkedColors = [];
+    colorsArray.forEach((color) => {
+      var s = new Option().style;
+      var colorString = "#" + color;
+      s.color = colorString;
+      if (s.color !== "") {
+        checkedColors.push(colorString);
+      }
+      if (checkedColors.length >= 1) {
+        dispatch(updateColorsFromURL(polygons, checkedColors));
+      }
+    });
+  };
+
   const handleGrain = (e) => {
     var grainSliderValue = document.querySelector(".grainSlider").value;
     grainOptions.grainOpacity = Number(grainSliderValue);
@@ -99,45 +130,32 @@ const ColorControls = () => {
     dispatch(updateBlurValue(Number(blurValue)));
   };
 
-  const handleChange = (e) => {
-    var fillStyle = e.currentTarget.id;
-    dispatch(updateFillStyle(fillStyle));
-  };
-
-  const handleRandomSolidChange = (e) => {
-    var fillStyle = e.currentTarget.id;
-    dispatch(updateRandomSolidFill(polygons, colors));
-    dispatch(updateFillStyle(fillStyle));
-  };
-
-  const handleGradientChange = (e) => {
-    var fillStyle = e.currentTarget.id;
-    dispatch(updateLinearGradient(linearGradientOptions[type]));
-    dispatch(updateFillStyle(fillStyle));
-  };
-
   return (
     <StyledColorControls>
-      <div className="styleOptions">
-        <div className="fillStyleOption" id="solid" onClick={handleChange}>
+      <div class="styleOptionsContainer container">
+        <div
+          className="fillStyleOption"
+          id="solid"
+          onClick={handleFillStyleChange}
+        >
           {solid}
         </div>
         <div
           className="fillStyleOption"
           id="randomSolid"
-          onClick={handleRandomSolidChange}
+          onClick={handleFillStyleChange}
         >
           {randomSolid}
         </div>
         <div
           className="fillStyleOption"
           id="gradient"
-          onClick={handleGradientChange}
+          onClick={handleFillStyleChange}
         >
           {gradient}
         </div>
       </div>
-      <div class="colorsContainer">
+      <div class="colorsContainer container">
         {colors.map((eachColor, index) => (
           <div className="colorBox" key={"colorBox" + index}>
             <div
@@ -145,6 +163,7 @@ const ColorControls = () => {
               style={{ backgroundColor: eachColor }}
             ></div>
             <input
+              key={eachColor}
               className="colorInput"
               type="text"
               defaultValue={eachColor}
@@ -169,7 +188,14 @@ const ColorControls = () => {
           )}
         </div>
       </div>
-      <div class="blurGrainContainer">
+      <div class="coolorsContainer container">
+        <input class="coolorsInput" placeholder="Paste coolors.co URL" />
+        <button class="coolorsButton" onClick={handleCoolors} type="button">
+          {check}
+        </button>
+      </div>
+
+      <div class="blurGrainContainer container">
         <input
           type="range"
           min="0"
@@ -198,15 +224,19 @@ const ColorControls = () => {
 const StyledColorControls = styled(motion.div)`
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   width: 100%;
   margin: 12px 6px;
 
-  .styleOptions {
+  .container {
+    margin: 6px;
+  }
+
+  .styleOptionsContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    width: 100%;
   }
 
   .fillStyleOption {
@@ -225,30 +255,13 @@ const StyledColorControls = styled(motion.div)`
     margin: auto;
   }
 
-  .blurGrainContainer {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: center;
-    font-size: 20px;
-  }
-
-  .blurSlider,
-  .grainSlider {
-    cursor: pointer;
-    background: none;
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-
   .colorsContainer {
     display: flex;
-    width: 100%;
-    min-height: 5vh;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     font-size: 20px;
+    //margin: -6px;
   }
 
   .colorBox {
@@ -256,7 +269,11 @@ const StyledColorControls = styled(motion.div)`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 12px 0px;
+    margin: 6px;
+  }
+
+  .colorChangeBox {
+    margin: 6px;
   }
 
   .colorDisplay {
@@ -268,6 +285,8 @@ const StyledColorControls = styled(motion.div)`
     width: 100px;
     padding-left: 0.5em;
     letter-spacing: 0.02em;
+    border-style: solid;
+    border-width: 1px;
   }
 
   .colorChangeBox {
@@ -275,7 +294,6 @@ const StyledColorControls = styled(motion.div)`
     flex-direction: row;
     justify-content: center;
     width: 100px;
-    margin: 12px 0px;
   }
 
   .colorChange {
@@ -292,6 +310,51 @@ const StyledColorControls = styled(motion.div)`
 
   .colorChange > .svg-inline--fa {
     height: 100%;
+  }
+
+  .coolorsContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .coolorsInput {
+    width: 75%;
+    text-align: center;
+  }
+
+  .coolorsButton {
+    border: none;
+    color: black;
+    background: none;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .coolorsButton:hover {
+    filter: invert(1);
+  }
+
+  .blurGrainContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .blurSlider,
+  .grainSlider {
+    cursor: pointer;
+    background: none;
+    padding-right: 10px;
+  }
+
+  .grainSlider {
+    padding-left: 10px;
   }
 `;
 

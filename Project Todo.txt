@@ -1,9 +1,10 @@
 Add image into each shape by color (ABANDONED)
 Based on size of one shape, how much is needed for different-sized quilts measured in yards (ABANDONED)
-Add radial gradient that randomizes color order on click
-Import color scheme from coloors
 Create random tiling / parameters / number of colors on page load
-
+Create export tab
+Find database of common screen sizes (phone, tablet, computer);
+Setup download buttons for common screen sizes
+Create explainer link
 
 *~*~*~*~*~*~*~*~*
 
@@ -68,3 +69,4 @@ Added random linear gradients
 04.02.21:
 Added random solid fill to state and made it compatible with other state changes
 Added blur and grain states
+Import color scheme from coloors

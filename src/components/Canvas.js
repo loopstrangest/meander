@@ -26,6 +26,7 @@ const Canvas = () => {
     linearGradient,
     randomSolidFill,
   } = useSelector((state) => state.tile);
+  const { tab } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
 
   let getPolygonData = (arr) => {
