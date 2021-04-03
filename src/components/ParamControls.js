@@ -139,13 +139,6 @@ const ParamControls = () => {
 };
 
 const StyledParamControls = styled(motion.div)`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  margin: 0px 6px;
-
   .paramContainer {
     display: flex;
     width: 195px;

@@ -77,19 +77,33 @@ const StyledMenu = styled(motion.div)`
   position: absolute;
   left: 20vw;
   width: 60vw;
-  bottom: 3vh;
+  bottom: 4vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   #menu {
     height: min-content;
+    max-height: 45vh;
     background-color: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(5px);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  #menu > * {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    margin: 6px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: black rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
   }
 
   .menuNav {

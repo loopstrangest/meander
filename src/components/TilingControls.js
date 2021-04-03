@@ -81,14 +81,6 @@ const TilingControls = () => {
 };
 
 const StyledTilingControls = styled(motion.div)`
-  margin-top: 3px;
-  margin-bottom: 3px;
-  height: min-content;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  overflow: auto;
-
   canvas {
     cursor: pointer;
   }

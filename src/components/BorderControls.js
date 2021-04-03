@@ -56,13 +56,6 @@ const BorderControls = () => {
 };
 
 const StyledBorderControls = styled(motion.div)`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  margin: 6px;
-
   .borderOption {
     cursor: pointer;
     position: relative;

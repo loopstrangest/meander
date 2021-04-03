@@ -21,6 +21,13 @@ const Home = () => {
   );
 };
 
-const Homepage = styled(motion.div)``;
+const Homepage = styled(motion.div)`
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  position: fixed;
+`;
 
 export default Home;

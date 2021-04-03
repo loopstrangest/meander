@@ -1,10 +1,12 @@
 Add image into each shape by color (ABANDONED)
 Based on size of one shape, how much is needed for different-sized quilts measured in yards (ABANDONED)
-Create random tiling / parameters / number of colors on page load
+
+Experiment with different tile sizes
 Create export tab
 Find database of common screen sizes (phone, tablet, computer);
 Setup download buttons for common screen sizes
 Create explainer link
+Show random tiling / parameters / gradient on page load
 
 *~*~*~*~*~*~*~*~*
 
@@ -70,3 +72,7 @@ Added random linear gradients
 Added random solid fill to state and made it compatible with other state changes
 Added blur and grain states
 Import color scheme from coloors
+
+04.03.21:
+Adjusted canvas and grain overlay size and position
+Improved menu display

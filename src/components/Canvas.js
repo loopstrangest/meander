@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 //tile and canvas
 import Sketch from "react-p5";
+import { faBorderNone } from "@fortawesome/free-solid-svg-icons";
 
 const Canvas = () => {
   //fetch random tile
@@ -134,21 +135,55 @@ const Canvas = () => {
     //p5.noLoop();
   };
   return (
-    <StyledCanvas className="styledCanvas">
-      <div className="grainOverlay"></div>
-      {
-        <Sketch
-          preload={preload}
-          setup={setup}
-          draw={draw}
-          className="tileCanvas"
-        />
-      }
-    </StyledCanvas>
+    <StyledCanvasContainer>
+      <div className="styledCanvas">
+        <div
+          className="grainOverlay"
+          style={{
+            width: width,
+            height: height,
+
+            content: "",
+            left: 0,
+            top: 0,
+            zIndex: 1,
+            position: "inherit",
+          }}
+        ></div>
+        {
+          <Sketch
+            preload={preload}
+            setup={setup}
+            draw={draw}
+            className="tileCanvas"
+            style={{ position: "inherit" }}
+          />
+        }
+      </div>
+    </StyledCanvasContainer>
   );
 };
 
-const StyledCanvas = styled(motion.div)`
+const StyledCanvasContainer = styled(motion.div)`
+  position: absolute;
+  width: 96%;
+  height: 96%;
+  left: 2%;
+  top: 2%;
+  border: 1px solid black;
+
+  * {
+    overflow: hidden;
+  }
+
+  .styledCanvas {
+    left: 4px;
+    right: 4px;
+    top: 4px;
+    bottom: 4px;
+    position: absolute;
+  }
+
   .tileCanvas {
     background-color: (0, 0, 0, 0);
   }

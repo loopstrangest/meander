@@ -140,8 +140,12 @@ export const createGrain = function () {
     } */
 
     var bgRule = "background-image: url(" + noise + ");";
+    /*
     var rule =
-      'position: absolute;content: "";height: 300%;width: 300%;left: -100%;top: -100%;z-index: 1';
+      'position: absolute;content: "";height: 100%;width: 100%;left: 0%;top: 0%;z-index: 1';
+    */
+    //var rule = 'position: absolute;content: "";left: 0%;top: 0%;z-index: 1';
+    var rule = "";
     //rule = "z-index: 1";
     var pre = prefixes.length;
 

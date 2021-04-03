@@ -196,40 +196,39 @@ const ColorControls = () => {
       </div>
 
       <div class="blurGrainContainer container">
-        <input
-          type="range"
-          min="0"
-          max="10"
-          step="0.2"
-          defaultValue={blur}
-          onChange={handleBlur}
-          class="blurSlider"
-        ></input>
-        {glasses}
-        <input
-          type="range"
-          min="0"
-          max="0.5"
-          step="0.025"
-          defaultValue={grain}
-          onChange={handleGrain}
-          class="grainSlider"
-        ></input>
-        {bread}
+        <div className="blurContainer">
+          <input
+            type="range"
+            min="0"
+            max="10"
+            step="0.2"
+            defaultValue={blur}
+            onChange={handleBlur}
+            class="blurSlider"
+          ></input>
+          {glasses}
+        </div>
+        <div className="grainContainer">
+          <input
+            type="range"
+            min="0"
+            max="0.5"
+            step="0.025"
+            defaultValue={grain}
+            onChange={handleGrain}
+            class="grainSlider"
+          ></input>
+          {bread}
+        </div>
       </div>
     </StyledColorControls>
   );
 };
 
 const StyledColorControls = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 100%;
-  margin: 12px 6px;
-
   .container {
     margin: 6px;
+    width: 100%;
   }
 
   .styleOptionsContainer {
@@ -240,9 +239,10 @@ const StyledColorControls = styled(motion.div)`
   }
 
   .fillStyleOption {
-    height: 5vh;
-    width: 100px;
+    width: auto;
     cursor: pointer;
+    margin: 3px;
+    height: 8vh;
   }
 
   .fillStyleOption:hover {
@@ -342,8 +342,14 @@ const StyledColorControls = styled(motion.div)`
   .blurGrainContainer {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
     font-size: 20px;
+    width: 100%;
+  }
+
+  .blurGrainContainer * {
+    margin: 3px 0;
   }
 
   .blurSlider,
@@ -351,10 +357,6 @@ const StyledColorControls = styled(motion.div)`
     cursor: pointer;
     background: none;
     padding-right: 10px;
-  }
-
-  .grainSlider {
-    padding-left: 10px;
   }
 `;
 

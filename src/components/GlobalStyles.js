@@ -6,7 +6,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Europa', sans-serif;
-    overflow: hidden;
+    //overflow: hidden;
 }
 
 //input sliders
