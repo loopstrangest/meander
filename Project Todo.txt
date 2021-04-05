@@ -2,9 +2,6 @@ Add image into each shape by color (ABANDONED)
 Based on size of one shape, how much is needed for different-sized quilts measured in yards (ABANDONED)
 
 Experiment with different tile sizes
-
-
-Create explainer link
 Show random tiling / parameters / gradient on page load
 
 *~*~*~*~*~*~*~*~*
@@ -80,3 +77,4 @@ Found common screen sizes
 Setup download buttons for common screen sizes
 
 04.05.21
+Added explainer overlay

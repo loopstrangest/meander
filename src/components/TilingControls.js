@@ -64,7 +64,7 @@ const TilingControls = () => {
             key={index}
             className={"canvasContainer" + index}
             onClick={handleNewTiling}
-            style={{ width: 100, height: 100 }}
+            style={{ width: canvasSize, height: canvasSize }}
           >
             <Sketch
               setup={setup}
@@ -86,8 +86,13 @@ const StyledTilingControls = styled(motion.div)`
   }
 
   div[class^="canvasContainer"] {
-    margin: 3px;
+    margin: 6px;
   }
+  div[class^="canvasContainer"] > * {
+    width: inherit;
+    height: inherit;
+  }
+
   div[class^="canvasContainer"]:hover {
     filter: invert(1);
   }

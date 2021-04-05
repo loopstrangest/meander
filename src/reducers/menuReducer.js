@@ -61,7 +61,8 @@ for (var index = 0; index < selectedTypes.length; index++) {
 }
 
 const initialState = {
-  tab: "params",
+  tab: "tiling",
+  showExplainer: false,
   allPolygons: allPolygons,
   allPolygonShifts: allPolygonShifts,
   allNumParameters: allNumParameters,
@@ -73,6 +74,11 @@ const menuReducer = (state = initialState, action) => {
       return {
         ...state,
         tab: action.payload.tab,
+      };
+    case "TOGGLE_EXPLAINER":
+      return {
+        ...state,
+        showExplainer: !state.showExplainer,
       };
 
     default:

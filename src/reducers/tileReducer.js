@@ -109,7 +109,7 @@ const initialState = {
   borderWidth: 0,
   fillStyle: "solid",
   //colors: ["#ff0000", "#0000ff"],
-  colors: ["#4B626D", "#E4D9AD", "#6BAC93", "#F8BF87", "#FA8E5F"],
+  colors: ["#003049", "#d62828", "#f77f00", "#fcbf49", "#eae2b7"],
   randomSolidFill: [],
   setRandomSolid: true,
   linearGradientOptions: linearGradients,

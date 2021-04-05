@@ -10,6 +10,7 @@ import {
   faGripLinesVertical,
   faPalette,
   faFileDownload,
+  faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 
 //components
@@ -33,14 +34,14 @@ const Menu = () => {
 
   const getMenuOption = () => {
     switch (tab) {
-      case "params": {
-        return <ParamControls />;
-      }
       case "tiling": {
         return <TilingControls />;
       }
       case "border": {
         return <BorderControls />;
+      }
+      case "params": {
+        return <ParamControls />;
       }
       case "colors": {
         return <ColorControls />;
@@ -56,20 +57,22 @@ const Menu = () => {
   const border = <FontAwesomeIcon icon={faGripLinesVertical} />;
   const colors = <FontAwesomeIcon icon={faPalette} />;
   const download = <FontAwesomeIcon icon={faFileDownload} />;
+  const question = <FontAwesomeIcon icon={faQuestion} />;
 
   return (
     <StyledMenu>
       <div id="menu">{getMenuOption()}</div>
       <div className="menuNav">
-        <div className="menuOption" id="params" onClick={updateMenuTab}>
-          {sliders}
-        </div>
         <div className="menuOption" id="tiling" onClick={updateMenuTab}>
           {pattern}
         </div>
         <div className="menuOption" id="border" onClick={updateMenuTab}>
           {border}
         </div>
+        <div className="menuOption" id="params" onClick={updateMenuTab}>
+          {sliders}
+        </div>
+
         <div className="menuOption" id="colors" onClick={updateMenuTab}>
           {colors}
         </div>
@@ -85,15 +88,15 @@ const StyledMenu = styled(motion.div)`
   z-index: 2;
   position: absolute;
   left: 20vw;
+  bottom: 4%;
   width: 60vw;
-  bottom: 4vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   #menu {
     height: min-content;
-    max-height: 45vh;
+    max-height: 60vh;
     background-color: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(5px);
     border-radius: 10px;
@@ -106,7 +109,7 @@ const StyledMenu = styled(motion.div)`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
     margin: 6px;
     overflow-y: auto;
@@ -118,6 +121,7 @@ const StyledMenu = styled(motion.div)`
   .menuNav {
     display: flex;
     height: 5vh;
+    min-height: 40px;
     margin-left: 1vw;
     margin-right: 1vw;
     flex-direction: row;

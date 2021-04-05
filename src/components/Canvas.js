@@ -8,7 +8,8 @@ import { motion } from "framer-motion";
 
 //tile and canvas
 import Sketch from "react-p5";
-import { faBorderNone } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 const Canvas = () => {
   //fetch random tile
@@ -29,6 +30,10 @@ const Canvas = () => {
   } = useSelector((state) => state.tile);
   const { tab } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
+
+  let getStyledCanvasWidth = () => {
+    return Math.min(100, document.body.clientWidth / 10);
+  };
 
   let getPolygonData = (arr) => {
     var minX, maxX, minY, maxY;
@@ -70,18 +75,6 @@ const Canvas = () => {
 
     polygons.forEach((polygon, pIndex) => {
       if (fillStyle === "gradient") {
-        /*
-        let polygonData = getPolygonData(polygon);
-        let rgradient = p5.drawingContext.createRadialGradient(
-          polygonData[0],
-          polygonData[1],
-          polygonData[2] * p5.noise(polygonData[0], polygonData[1]),
-          polygonData[0],
-          polygonData[1],
-          polygonData[2] / 4
-        );
-        */
-
         let p5LinearGradient = p5.drawingContext.createLinearGradient(
           polygon[linearGradient[0]][0],
           polygon[linearGradient[0]][1],

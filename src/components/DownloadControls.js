@@ -77,6 +77,9 @@ const DownloadControls = () => {
         <button className="download" onClick={() => handleDownload(820, 360)}>
           Facebook Cover Photo
         </button>
+        <button className="download" onClick={() => handleDownload(1584, 396)}>
+          LinkedIn Cover Photo
+        </button>
       </div>
       <div className="buttonContainer">
         <p>Custom (100px - 2500px):</p>

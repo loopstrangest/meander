@@ -147,6 +147,10 @@ const StyledParamControls = styled(motion.div)`
     margin: 5px 12px;
   }
 
+  canvas {
+    border-radius: 10px;
+  }
+
   .visualContainer {
     display: flex;
     flex-direction: row;
