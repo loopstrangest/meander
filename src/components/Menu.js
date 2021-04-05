@@ -9,6 +9,7 @@ import {
   faBorderAll,
   faGripLinesVertical,
   faPalette,
+  faFileDownload,
 } from "@fortawesome/free-solid-svg-icons";
 
 //components
@@ -16,6 +17,7 @@ import ParamControls from "../components/ParamControls";
 import TilingControls from "../components/TilingControls";
 import BorderControls from "../components/BorderControls";
 import ColorControls from "../components/ColorControls";
+import DownloadControls from "../components/DownloadControls";
 
 //styling and animation
 import styled from "styled-components";
@@ -43,6 +45,9 @@ const Menu = () => {
       case "colors": {
         return <ColorControls />;
       }
+      case "download": {
+        return <DownloadControls />;
+      }
     }
   };
 
@@ -50,6 +55,7 @@ const Menu = () => {
   const pattern = <FontAwesomeIcon icon={faBorderAll} />;
   const border = <FontAwesomeIcon icon={faGripLinesVertical} />;
   const colors = <FontAwesomeIcon icon={faPalette} />;
+  const download = <FontAwesomeIcon icon={faFileDownload} />;
 
   return (
     <StyledMenu>
@@ -66,6 +72,9 @@ const Menu = () => {
         </div>
         <div className="menuOption" id="colors" onClick={updateMenuTab}>
           {colors}
+        </div>
+        <div className="menuOption" id="download" onClick={updateMenuTab}>
+          {download}
         </div>
       </div>
     </StyledMenu>

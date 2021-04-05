@@ -1,6 +1,6 @@
 import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
 
-var initialSize = 2000;
+var initialSize = 3000;
 var initialScaleFactor = 50;
 //var initialType = Math.floor(Math.random() * numTypes);
 var selectedTypes = [3, 6, 19, 22, 25, 26, 28, 43, 49, 69, 75];

@@ -72,7 +72,6 @@ const TilingControls = () => {
               className={"canvas" + index}
               key={"canvas" + index}
             />
-            {/* <p>{allNumParameters[index]}</p> */}
           </div>
         );
       })}
@@ -83,11 +82,11 @@ const TilingControls = () => {
 const StyledTilingControls = styled(motion.div)`
   canvas {
     cursor: pointer;
+    border-radius: 10px;
   }
 
   div[class^="canvasContainer"] {
     margin: 3px;
-    border-radius: 10px;
   }
   div[class^="canvasContainer"]:hover {
     filter: invert(1);
