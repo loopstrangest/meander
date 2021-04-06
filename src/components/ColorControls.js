@@ -123,6 +123,8 @@ const ColorControls = () => {
     dispatch(updateGrainValue(Number(grainSliderValue)));
   };
 
+  console.log("blur");
+
   const handleBlur = (e) => {
     var blurValue = document.querySelector(".blurSlider").value;
     var canvas = document.querySelector(".tileCanvas");
@@ -132,7 +134,7 @@ const ColorControls = () => {
 
   return (
     <StyledColorControls>
-      <div class="styleOptionsContainer container">
+      <div className="styleOptionsContainer container">
         <div
           className="fillStyleOption"
           id="solid"
@@ -155,7 +157,7 @@ const ColorControls = () => {
           {gradient}
         </div>
       </div>
-      <div class="colorsContainer container">
+      <div className="colorsContainer container">
         {colors.map((eachColor, index) => (
           <div className="colorBox" key={"colorBox" + index}>
             <div
@@ -188,14 +190,14 @@ const ColorControls = () => {
           )}
         </div>
       </div>
-      <div class="coolorsContainer container">
-        <input class="coolorsInput" placeholder="Paste coolors.co URL" />
-        <button class="coolorsButton" onClick={handleCoolors} type="button">
+      <div className="coolorsContainer container">
+        <input className="coolorsInput" placeholder="Paste coolors.co URL" />
+        <button className="coolorsButton" onClick={handleCoolors} type="button">
           {check}
         </button>
       </div>
 
-      <div class="blurGrainContainer container">
+      <div className="blurGrainContainer container">
         <div className="blurContainer">
           <input
             type="range"
@@ -204,7 +206,7 @@ const ColorControls = () => {
             step="0.2"
             defaultValue={blur}
             onChange={handleBlur}
-            class="blurSlider"
+            className="blurSlider"
           ></input>
           {glasses}
         </div>
@@ -216,7 +218,7 @@ const ColorControls = () => {
             step="0.025"
             defaultValue={grain}
             onChange={handleGrain}
-            class="grainSlider"
+            className="grainSlider"
           ></input>
           {bread}
         </div>

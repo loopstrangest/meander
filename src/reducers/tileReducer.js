@@ -1,3 +1,6 @@
+import { getRandomPattern } from "../scripts/getRandomPattern";
+
+/*
 import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
 
 var initialSize = 3000;
@@ -111,14 +114,16 @@ const initialState = {
   //colors: ["#ff0000", "#0000ff"],
   colors: ["#003049", "#d62828", "#f77f00", "#fcbf49", "#eae2b7"],
   randomSolidFill: [],
-  setRandomSolid: true,
   linearGradientOptions: linearGradients,
   linearGradient: [],
   blur: 0,
   grain: 0,
 };
+*/
 
-const tileReducer = (state = initialState, action) => {
+const randomPattern = getRandomPattern();
+
+const tileReducer = (state = randomPattern, action) => {
   switch (action.type) {
     case "SET_TILE_PARAMETERS":
       return {
@@ -177,6 +182,28 @@ const tileReducer = (state = initialState, action) => {
       return {
         ...state,
         grain: action.payload.grain,
+      };
+    case "TOGGLE_SET_BLUR_AND_GRAIN":
+      return {
+        ...state,
+        setBlurAndGrain: !state.setBlurAndGrain,
+      };
+    case "SET_RANDOM_PATTERN":
+      return {
+        ...state,
+        type: action.payload.randomPattern.type,
+        defaultParameters: action.payload.randomPattern.defaultParameters,
+        tiling: action.payload.randomPattern.tiling,
+        polygons: action.payload.randomPattern.polygons,
+        borderWidth: 0,
+        fillStyle: action.payload.randomPattern.fillStyle,
+        colors: action.payload.randomPattern.colors,
+        randomSolidFill: [],
+        linearGradientOptions:
+          action.payload.randomPattern.linearGradientOptions,
+        linearGradient: action.payload.randomPattern.linearGradient,
+        blur: action.payload.randomPattern.blur,
+        grain: action.payload.randomPattern.grain,
       };
     default:
       return { ...state };

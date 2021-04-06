@@ -20,7 +20,7 @@ const TilingControls = () => {
     linearGradientOptions,
     colors,
   } = useSelector((state) => state.tile);
-  const { allPolygons, allNumParameters } = useSelector((state) => state.menu);
+  const { allPolygons } = useSelector((state) => state.menu);
 
   const handleNewTiling = (e) => {
     var tilingIndex = e.currentTarget.className.replace("canvasContainer", "");

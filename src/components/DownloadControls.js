@@ -86,7 +86,7 @@ const DownloadControls = () => {
         <input id="customWidth" type="number" min="100" max="2500" />
         <input id="customHeight" type="number" min="100" max="2500" />
         <button
-          class="customDownloadButton"
+          className="customDownloadButton"
           onClick={() =>
             handleDownload(
               document.querySelector("#customWidth").value,

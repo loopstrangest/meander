@@ -10,7 +10,8 @@ import {
   faGripLinesVertical,
   faPalette,
   faFileDownload,
-  faQuestion,
+  faBars,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
 //components
@@ -26,10 +27,14 @@ import { motion } from "framer-motion";
 
 const Menu = () => {
   const dispatch = useDispatch();
-  const { tab } = useSelector((state) => state.menu);
+  const { tab, showMenu } = useSelector((state) => state.menu);
 
   const updateMenuTab = (e) => {
     dispatch(updateTab(e.currentTarget.id));
+  };
+
+  const toggleMenu = () => {
+    dispatch({ type: "TOGGLE_MENU" });
   };
 
   const getMenuOption = () => {
@@ -57,30 +62,44 @@ const Menu = () => {
   const border = <FontAwesomeIcon icon={faGripLinesVertical} />;
   const colors = <FontAwesomeIcon icon={faPalette} />;
   const download = <FontAwesomeIcon icon={faFileDownload} />;
-  const question = <FontAwesomeIcon icon={faQuestion} />;
+  const menu = <FontAwesomeIcon icon={faBars} />;
+  const close = <FontAwesomeIcon icon={faTimes} />;
 
   return (
-    <StyledMenu>
-      <div id="menu">{getMenuOption()}</div>
-      <div className="menuNav">
-        <div className="menuOption" id="tiling" onClick={updateMenuTab}>
-          {pattern}
-        </div>
-        <div className="menuOption" id="border" onClick={updateMenuTab}>
-          {border}
-        </div>
-        <div className="menuOption" id="params" onClick={updateMenuTab}>
-          {sliders}
-        </div>
+    <div>
+      {showMenu ? (
+        <StyledMenu>
+          <div id="menu">
+            {getMenuOption()}
+            <div className="hideMenu" onClick={toggleMenu}>
+              {close}
+            </div>
+          </div>
+          <div className="menuNav">
+            <div className="menuOption" id="tiling" onClick={updateMenuTab}>
+              {pattern}
+            </div>
+            <div className="menuOption" id="border" onClick={updateMenuTab}>
+              {border}
+            </div>
+            <div className="menuOption" id="params" onClick={updateMenuTab}>
+              {sliders}
+            </div>
 
-        <div className="menuOption" id="colors" onClick={updateMenuTab}>
-          {colors}
-        </div>
-        <div className="menuOption" id="download" onClick={updateMenuTab}>
-          {download}
-        </div>
-      </div>
-    </StyledMenu>
+            <div className="menuOption" id="colors" onClick={updateMenuTab}>
+              {colors}
+            </div>
+            <div className="menuOption" id="download" onClick={updateMenuTab}>
+              {download}
+            </div>
+          </div>
+        </StyledMenu>
+      ) : (
+        <StyledMenuButton onClick={toggleMenu}>
+          <div className="menuButton">{menu}</div>
+        </StyledMenuButton>
+      )}
+    </div>
   );
 };
 
@@ -142,13 +161,69 @@ const StyledMenu = styled(motion.div)`
     display: flex;
   }
 
+  .hideMenu {
+    height: 30px !important;
+    width: 30px !important;
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    z-index: 5;
+    border-radius: 50%;
+  }
+
+  .hideMenu:hover {
+    cursor: pointer;
+    filter: invert(1);
+  }
+
+  .hideMenu > .svg-inline--fa {
+    width: 80%;
+    height: 80%;
+    margin: auto;
+  }
+
   .menuOption:hover {
+    cursor: pointer;
     filter: invert(1);
   }
 
   .menuOption > .svg-inline--fa {
     width: 90%;
     height: 90%;
+    margin: auto;
+  }
+`;
+
+const StyledMenuButton = styled(motion.div)`
+  z-index: 2;
+  position: absolute;
+  left: 4vw;
+  bottom: 4vh;
+  width: 5vh;
+  height: 5vh;
+  min-height: 40px;
+
+  :hover {
+    cursor: pointer;
+    filter: invert(1);
+  }
+
+  .menuButton {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+  }
+
+  .menuButton > .svg-inline--fa {
+    width: 75%;
+    height: 75%;
     margin: auto;
   }
 `;

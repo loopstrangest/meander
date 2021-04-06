@@ -1,10 +1,8 @@
 //redux and routes
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateParameters } from "../actions/tileAction";
 import Sketch from "react-p5";
 
-import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUndoAlt, faArrowsAltH } from "@fortawesome/free-solid-svg-icons";
 
@@ -25,12 +23,13 @@ const ParamControls = () => {
   } = useSelector((state) => state.tile);
   const { allPolygonShifts } = useSelector((state) => state.menu);
   const reset = <FontAwesomeIcon icon={faUndoAlt} />;
-  const leftRight = <FontAwesomeIcon class="leftRight" icon={faArrowsAltH} />;
+  const leftRight = (
+    <FontAwesomeIcon className="leftRight" icon={faArrowsAltH} />
+  );
 
   const resetParam = (e) => {
     var paramButtons = document.querySelectorAll(".paramReset");
     var buttonIndex = Array.from(paramButtons).indexOf(e.currentTarget);
-    console.log(buttonIndex);
     var paramSliders = document.querySelectorAll(".paramSlider");
     var paramResetValue = defaultParameters[buttonIndex];
     Array.from(paramSliders)[buttonIndex].value = paramResetValue;
@@ -83,7 +82,7 @@ const ParamControls = () => {
     };
 
     controls.push(
-      <div class="paramContainer" key={"paramContainder" + index}>
+      <div className="paramContainer" key={"paramContainder" + index}>
         <div className="visualContainer">
           <div
             key={"visualContainerLeft" + index}
@@ -119,11 +118,11 @@ const ParamControls = () => {
             step="0.01"
             defaultValue={param}
             onChange={handleChange}
-            class="paramSlider"
+            className="paramSlider"
             id={"paramSlider" + index}
           ></input>
           <button
-            class="paramReset"
+            className="paramReset"
             onClick={resetParam}
             id={"paramReset" + index}
             type="button"
@@ -167,7 +166,8 @@ const StyledParamControls = styled(motion.div)`
 
   .leftRight {
     margin: auto 6px;
-    height: 25px;
+    width: 30px;
+    height: 100%;
   }
 
   .sliderContainer {

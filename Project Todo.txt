@@ -1,9 +1,6 @@
 Add image into each shape by color (ABANDONED)
 Based on size of one shape, how much is needed for different-sized quilts measured in yards (ABANDONED)
 
-Experiment with different tile sizes
-Show random tiling / parameters / gradient on page load
-
 *~*~*~*~*~*~*~*~*
 
 03.11.21:
@@ -78,3 +75,7 @@ Setup download buttons for common screen sizes
 
 04.05.21
 Added explainer overlay
+
+04.06.21:
+Added random pattern (tiling, parameters, gradient) on page load and spacebar press
+Added button to hide and show menu

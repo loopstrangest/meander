@@ -1,4 +1,5 @@
 import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
+import { getRandomPattern } from "../scripts/getRandomPattern.js";
 
 export const updateParameters = (
   width,
@@ -151,6 +152,15 @@ export const updateGrainValue = (grain) => async (dispatch) => {
     type: "SET_GRAIN",
     payload: {
       grain: grain,
+    },
+  });
+};
+
+export const updateRandomPattern = (colors) => async (dispatch) => {
+  dispatch({
+    type: "SET_RANDOM_PATTERN",
+    payload: {
+      randomPattern: getRandomPattern(colors),
     },
   });
 };

@@ -1,15 +1,15 @@
 //redux and routes
 import { useDispatch, useSelector } from "react-redux";
-import quiltImage from "../quilt.jpg";
-import { updateRandomSolidFill } from "../actions/tileAction";
+
+import { updateRandomPattern } from "../actions/tileAction";
+
+import { createGrain } from "../canvas_modules/grained/grained.js";
 //styling and animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
 //tile and canvas
 import Sketch from "react-p5";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 const Canvas = () => {
   //fetch random tile
@@ -18,52 +18,44 @@ const Canvas = () => {
     height,
     polygons,
     borderWidth,
-    type,
-    scaleFactor,
     fillStyle,
-    tiling,
     colors,
-    image,
-    linearGradientOptions,
     linearGradient,
     randomSolidFill,
+    blur,
+    grain,
   } = useSelector((state) => state.tile);
   const { tab } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
 
-  let getStyledCanvasWidth = () => {
-    return Math.min(100, document.body.clientWidth / 10);
+  var grainOptions = {
+    animate: false,
+    patternWidth: 100,
+    patternHeight: 100,
+    grainOpacity: 0,
+    grainDensity: 1,
+    grainWidth: 1,
+    grainHeight: 1,
+    grainChaos: 0.5,
+    grainSpeed: 0,
   };
+  var canvasGrain = new createGrain();
 
-  let getPolygonData = (arr) => {
-    var minX, maxX, minY, maxY;
-    for (var i = 0; i < arr.length; i++) {
-      minX = arr[i][0] < minX || minX == null ? arr[i][0] : minX;
-      maxX = arr[i][0] > maxX || maxX == null ? arr[i][0] : maxX;
-      minY = arr[i][1] < minY || minY == null ? arr[i][1] : minY;
-      maxY = arr[i][1] > maxY || maxY == null ? arr[i][1] : maxY;
-    }
-    var length = maxX - minX;
-    var height = maxY - minY;
-    var smallestSide = Math.min(length, height);
-    var centerX = parseFloat(((minX + maxX) / 2).toFixed(3));
-    var centerY = parseFloat(((minY + maxY) / 2).toFixed(3));
-    //Center coordinates, minimum of (lenght, height)
-    return [centerX, centerY, smallestSide];
-  };
+  let setBlurGrain = () => {
+    console.log("setting blur grain");
+    //set blur
+    var canvas = document.querySelector(".tileCanvas");
+    canvas.style.filter = `blur(${blur}px)`;
 
-  let quilt;
-  let testImage = new Image(50, 50);
-  testImage.src = quiltImage;
-
-  //PRELOAD
-  let preload = (p5) => {
-    quilt = p5.loadImage(quiltImage);
+    //set grain
+    grainOptions.grainOpacity = grain;
+    canvasGrain.grained("grainOverlay", grainOptions);
   };
 
   //SETUP
   let setup = (setup, parentClass) => {
     let canvas = setup.createCanvas(width, height).parent(parentClass);
+    setBlurGrain();
     var randomFillArray = [];
     polygons.forEach((polygon, pIndex) => {});
   };
@@ -125,7 +117,12 @@ const Canvas = () => {
       p5.vertex(polygon[0][0], polygon[0][1]);
       p5.endShape();
     });
-    //p5.noLoop();
+  };
+
+  let keyTyped = (p5) => {
+    if (p5.key === " ") {
+      dispatch(updateRandomPattern(colors));
+    }
   };
   return (
     <StyledCanvasContainer>
@@ -145,11 +142,11 @@ const Canvas = () => {
         ></div>
         {
           <Sketch
-            preload={preload}
             setup={setup}
             draw={draw}
             className="tileCanvas"
             style={{ position: "inherit" }}
+            keyTyped={keyTyped}
           />
         }
       </div>
@@ -178,7 +175,7 @@ const StyledCanvasContainer = styled(motion.div)`
   }
 
   .tileCanvas {
-    background-color: (0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
   }
 `;
 
