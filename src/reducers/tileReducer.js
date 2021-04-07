@@ -188,6 +188,11 @@ const tileReducer = (state = randomPattern, action) => {
         ...state,
         setBlurAndGrain: !state.setBlurAndGrain,
       };
+    case "TOGGLE_GETTING_RANDOM_PATTERN":
+      return {
+        ...state,
+        gettingRandomPattern: !state.gettingRandomPattern,
+      };
     case "SET_RANDOM_PATTERN":
       return {
         ...state,
@@ -204,6 +209,7 @@ const tileReducer = (state = randomPattern, action) => {
         linearGradient: action.payload.randomPattern.linearGradient,
         blur: action.payload.randomPattern.blur,
         grain: action.payload.randomPattern.grain,
+        gettingRandomPattern: !state.gettingRandomPattern,
       };
     default:
       return { ...state };

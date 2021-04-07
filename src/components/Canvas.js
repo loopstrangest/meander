@@ -1,8 +1,6 @@
 //redux and routes
 import { useDispatch, useSelector } from "react-redux";
-
 import { updateRandomPattern } from "../actions/tileAction";
-
 import { createGrain } from "../canvas_modules/grained/grained.js";
 //styling and animation
 import styled from "styled-components";
@@ -24,6 +22,7 @@ const Canvas = () => {
     randomSolidFill,
     blur,
     grain,
+    gettingRandomPattern,
   } = useSelector((state) => state.tile);
   const { tab } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
@@ -42,7 +41,6 @@ const Canvas = () => {
   var canvasGrain = new createGrain();
 
   let setBlurGrain = () => {
-    console.log("setting blur grain");
     //set blur
     var canvas = document.querySelector(".tileCanvas");
     canvas.style.filter = `blur(${blur}px)`;
@@ -121,6 +119,7 @@ const Canvas = () => {
 
   let keyTyped = (p5) => {
     if (p5.key === " ") {
+      dispatch({ type: "TOGGLE_GETTING_RANDOM_PATTERN" });
       dispatch(updateRandomPattern(colors));
     }
   };
@@ -160,7 +159,7 @@ const StyledCanvasContainer = styled(motion.div)`
   height: 96%;
   left: 2%;
   top: 2%;
-  border: 1px solid black;
+  border: 1px solid white;
 
   * {
     overflow: hidden;

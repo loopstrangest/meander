@@ -1,6 +1,9 @@
 Add image into each shape by color (ABANDONED)
 Based on size of one shape, how much is needed for different-sized quilts measured in yards (ABANDONED)
 
+
+Add button to generate a random pattern when menu is hidden
+
 *~*~*~*~*~*~*~*~*
 
 03.11.21:
@@ -79,3 +82,7 @@ Added explainer overlay
 04.06.21:
 Added random pattern (tiling, parameters, gradient) on page load and spacebar press
 Added button to hide and show menu
+
+04.07.21:
+Changed page background and canvas border colors
+Fixed param display with random pattern generation

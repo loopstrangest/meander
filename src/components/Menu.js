@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTab } from "../actions/menuAction";
+import { updateRandomPattern } from "../actions/tileAction";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,6 +13,7 @@ import {
   faFileDownload,
   faBars,
   faTimes,
+  faSyncAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 //components
@@ -27,10 +29,16 @@ import { motion } from "framer-motion";
 
 const Menu = () => {
   const dispatch = useDispatch();
+  const { colors, gettingRandomPattern } = useSelector((state) => state.tile);
   const { tab, showMenu } = useSelector((state) => state.menu);
 
   const updateMenuTab = (e) => {
     dispatch(updateTab(e.currentTarget.id));
+  };
+
+  const setRandomPattern = (e) => {
+    dispatch({ type: "TOGGLE_GETTING_RANDOM_PATTERN" });
+    dispatch(updateRandomPattern(colors));
   };
 
   const toggleMenu = () => {
@@ -46,7 +54,7 @@ const Menu = () => {
         return <BorderControls />;
       }
       case "params": {
-        return <ParamControls />;
+        return !gettingRandomPattern ? <ParamControls /> : "";
       }
       case "colors": {
         return <ColorControls />;
@@ -60,10 +68,11 @@ const Menu = () => {
   const sliders = <FontAwesomeIcon icon={faSlidersH} />;
   const pattern = <FontAwesomeIcon icon={faBorderAll} />;
   const border = <FontAwesomeIcon icon={faGripLinesVertical} />;
-  const colors = <FontAwesomeIcon icon={faPalette} />;
+  const palette = <FontAwesomeIcon icon={faPalette} />;
   const download = <FontAwesomeIcon icon={faFileDownload} />;
   const menu = <FontAwesomeIcon icon={faBars} />;
   const close = <FontAwesomeIcon icon={faTimes} />;
+  const random = <FontAwesomeIcon icon={faSyncAlt} />;
 
   return (
     <div>
@@ -87,7 +96,7 @@ const Menu = () => {
             </div>
 
             <div className="menuOption" id="colors" onClick={updateMenuTab}>
-              {colors}
+              {palette}
             </div>
             <div className="menuOption" id="download" onClick={updateMenuTab}>
               {download}
@@ -95,9 +104,14 @@ const Menu = () => {
           </div>
         </StyledMenu>
       ) : (
-        <StyledMenuButton onClick={toggleMenu}>
-          <div className="menuButton">{menu}</div>
-        </StyledMenuButton>
+        <div>
+          <StyledMenuButton onClick={toggleMenu}>
+            <div className="menuButton">{menu}</div>
+          </StyledMenuButton>
+          <StyledRandomButton onClick={setRandomPattern}>
+            <div className="randomButton">{random}</div>
+          </StyledRandomButton>
+        </div>
       )}
     </div>
   );
@@ -224,6 +238,41 @@ const StyledMenuButton = styled(motion.div)`
   .menuButton > .svg-inline--fa {
     width: 75%;
     height: 75%;
+    margin: auto;
+  }
+`;
+
+const StyledRandomButton = styled(motion.div)`
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 4vh;
+  width: 5vh;
+  height: 5vh;
+  min-height: 40px;
+
+  :hover {
+    cursor: pointer;
+    filter: invert(1);
+  }
+
+  .randomButton {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+  }
+
+  .randomButton > .svg-inline--fa {
+    width: 70%;
+    height: 70%;
     margin: auto;
   }
 `;

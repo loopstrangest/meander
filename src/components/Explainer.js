@@ -20,6 +20,7 @@ import {
   faCheck,
   faRandom,
   faBreadSlice,
+  faSyncAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 
@@ -45,13 +46,15 @@ const Explainer = () => {
   const glasses = <FontAwesomeIcon class="textIcon" icon={faGlasses} />;
   const bread = <FontAwesomeIcon class="textIcon" icon={faBreadSlice} />;
   const download = <FontAwesomeIcon class="textIcon" icon={faFileDownload} />;
+  const random = <FontAwesomeIcon class="textIcon" icon={faSyncAlt} />;
 
   return (
     <ExplainerShadow onClick={toggleExplainer}>
       <Information>
-        <p>
+        <p class="about">
           Meander lets you create custom wallpapers for your digital device.
         </p>
+        <hr />
         <p>{pattern} Choose the pattern to display.</p>
 
         <p>{border} Change the border thickness of each shape.</p>
@@ -74,8 +77,14 @@ const Explainer = () => {
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{bread} Grain effect
         </p>
         <p>{download} Download the displayed pattern as a JPG.</p>
+
+        <p>
+          Press the spacebar or {random} when the menu is minimized to generate
+          a new pattern.
+        </p>
+
         <hr />
-        <p class="aboutMe">
+        <p class="about">
           Meander is made by Loopy, a web developer actively seeking work
           opportunities.
         </p>
@@ -107,29 +116,29 @@ const ExplainerShadow = styled(motion.div)`
   top: 0;
   left: 0;
   z-index: 5;
-  &::-webkit-scrollbar {
-    width: 0.5rem;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #ff7676;
-  }
-  &::-webkit-scrollbar-track {
-    background: white;
-  }
 `;
 
 const Information = styled(motion.div)`
   display: block;
-  width: 75%;
+  width: 80%;
   height: min-content;
+  max-height: 80%;
+  overflow-y: auto;
+  scrollbar-color: black rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
   margin: auto;
   border-radius: 1rem;
-  padding: 1rem 3rem;
+  padding: 1rem 2rem;
   background: white;
   position: relative;
   color: black;
   z-index: 10;
   font-size: 20px;
+
+  ::-webkit-scrollbar-thumb {
+    background: red;
+  }
+
   img {
     width: 100%;
   }
@@ -148,11 +157,11 @@ const Information = styled(motion.div)`
   }
 
   .links,
-  .aboutMe {
+  .about {
     display: flex;
     justify-content: center;
   }
-  .aboutMe {
+  .about {
     text-align: center;
   }
   .links {

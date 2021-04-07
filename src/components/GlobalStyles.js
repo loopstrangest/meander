@@ -9,6 +9,10 @@ const GlobalStyles = createGlobalStyle`
     //overflow: hidden;
 }
 
+body {
+  background-color: #242424;
+}
+
 //input sliders
 input[type=range] {
   -webkit-appearance: none;

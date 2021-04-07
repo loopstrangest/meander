@@ -136,13 +136,14 @@ export function getRandomPattern(chosenColors) {
     tiling: randomPrototile.getCurrentTiling(),
     polygons: randomPolygons,
     borderWidth: 0,
-    fillStyle: "gradient",
+    fillStyle: "solid",
     colors: colors,
     randomSolidFill: [],
     linearGradientOptions: linearGradients,
     linearGradient: randomGradient,
     blur: 2,
     grain: 0.25,
+    gettingRandomPattern: false,
   };
 
   return randomPattern;
