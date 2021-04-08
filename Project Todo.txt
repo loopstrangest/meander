@@ -1,8 +1,9 @@
 Add image into each shape by color (ABANDONED)
 Based on size of one shape, how much is needed for different-sized quilts measured in yards (ABANDONED)
 
-
-Add button to generate a random pattern when menu is hidden
+Create social sharing images and top sample patterns
+Add sharing images to react project
+Add project to website
 
 *~*~*~*~*~*~*~*~*
 
@@ -86,3 +87,9 @@ Added button to hide and show menu
 04.07.21:
 Changed page background and canvas border colors
 Fixed param display with random pattern generation
+Added button to generate a random pattern when menu is hidden
+
+04.08.21:
+Fixed bad menus visuals on chrome
+Added border color selection
+Random pattern generation remembers user's selected: colors, border width, border color, fill style, blur grain

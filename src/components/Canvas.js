@@ -16,6 +16,7 @@ const Canvas = () => {
     height,
     polygons,
     borderWidth,
+    borderColor,
     fillStyle,
     colors,
     linearGradient,
@@ -54,13 +55,12 @@ const Canvas = () => {
   let setup = (setup, parentClass) => {
     let canvas = setup.createCanvas(width, height).parent(parentClass);
     setBlurGrain();
-    var randomFillArray = [];
-    polygons.forEach((polygon, pIndex) => {});
   };
 
   //DRAW
   let draw = (p5) => {
     p5.strokeWeight(borderWidth);
+    p5.stroke(borderColor);
     p5.smooth();
 
     polygons.forEach((polygon, pIndex) => {
@@ -120,7 +120,17 @@ const Canvas = () => {
   let keyTyped = (p5) => {
     if (p5.key === " ") {
       dispatch({ type: "TOGGLE_GETTING_RANDOM_PATTERN" });
-      dispatch(updateRandomPattern(colors));
+      console.log("fillStyle going to dispatch is", fillStyle);
+      dispatch(
+        updateRandomPattern(
+          colors,
+          borderWidth,
+          borderColor,
+          fillStyle,
+          blur,
+          grain
+        )
+      );
     }
   };
   return (

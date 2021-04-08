@@ -29,7 +29,15 @@ import { motion } from "framer-motion";
 
 const Menu = () => {
   const dispatch = useDispatch();
-  const { colors, gettingRandomPattern } = useSelector((state) => state.tile);
+  const {
+    colors,
+    borderWidth,
+    borderColor,
+    fillStyle,
+    blur,
+    grain,
+    gettingRandomPattern,
+  } = useSelector((state) => state.tile);
   const { tab, showMenu } = useSelector((state) => state.menu);
 
   const updateMenuTab = (e) => {
@@ -38,7 +46,16 @@ const Menu = () => {
 
   const setRandomPattern = (e) => {
     dispatch({ type: "TOGGLE_GETTING_RANDOM_PATTERN" });
-    dispatch(updateRandomPattern(colors));
+    dispatch(
+      updateRandomPattern(
+        colors,
+        borderWidth,
+        borderColor,
+        fillStyle,
+        blur,
+        grain
+      )
+    );
   };
 
   const toggleMenu = () => {
@@ -271,8 +288,8 @@ const StyledRandomButton = styled(motion.div)`
   }
 
   .randomButton > .svg-inline--fa {
-    width: 70%;
-    height: 70%;
+    width: 80%;
+    height: 80%;
     margin: auto;
   }
 `;

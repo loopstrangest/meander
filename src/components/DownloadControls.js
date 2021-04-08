@@ -11,9 +11,11 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const DownloadControls = () => {
-  const dispatch = useDispatch();
   const check = <FontAwesomeIcon icon={faCheck} />;
   const handleDownload = (width, height) => {
+    if (width < 100 || width > 2500 || height < 100 || height > 2500) {
+      return;
+    }
     var divToDownload = document.querySelector(".styledCanvas");
     domtoimage
       .toJpeg(divToDownload, {
@@ -135,6 +137,13 @@ const StyledDownloadControls = styled(motion.div)`
     font-size: 20px;
     cursor: pointer;
     border-radius: 5px;
+  }
+
+  #customHeight,
+  #customWidth {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding-left: 0.5em;
   }
 
   button {

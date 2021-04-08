@@ -181,6 +181,7 @@ const StyledParamControls = styled(motion.div)`
   .paramSlider {
     cursor: pointer;
     background: none;
+    width: 100%;
   }
 
   .paramReset {

@@ -252,7 +252,7 @@ const StyledColorControls = styled(motion.div)`
   }
 
   .fillStyleOption > .svg-inline--fa {
-    width: 100%;
+    width: 80px;
     height: 100%;
     margin: auto;
   }
@@ -263,7 +263,6 @@ const StyledColorControls = styled(motion.div)`
     flex-wrap: wrap;
     justify-content: center;
     font-size: 20px;
-    //margin: -6px;
   }
 
   .colorBox {
@@ -281,14 +280,15 @@ const StyledColorControls = styled(motion.div)`
   .colorDisplay {
     width: 25px;
     margin-right: 6px;
+    border-radius: 6px;
   }
 
   .colorInput {
     width: 100px;
     padding-left: 0.5em;
     letter-spacing: 0.02em;
-    border-style: solid;
-    border-width: 1px;
+    border: 1px solid black;
+    border-radius: 6px;
   }
 
   .colorChangeBox {
@@ -322,6 +322,9 @@ const StyledColorControls = styled(motion.div)`
   .coolorsInput {
     width: 75%;
     text-align: center;
+    letter-spacing: 0.02em;
+    border: 1px solid black;
+    border-radius: 6px;
   }
 
   .coolorsButton {
@@ -334,7 +337,6 @@ const StyledColorControls = styled(motion.div)`
     display: flex;
     font-size: 20px;
     cursor: pointer;
-    border-radius: 5px;
   }
 
   .coolorsButton:hover {
@@ -345,13 +347,18 @@ const StyledColorControls = styled(motion.div)`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     font-size: 20px;
     width: 100%;
   }
 
-  .blurGrainContainer * {
-    margin: 3px 0;
+  .blurContainer,
+  .grainContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 6px 12px;
+    width: 195px;
   }
 
   .blurSlider,
@@ -359,6 +366,7 @@ const StyledColorControls = styled(motion.div)`
     cursor: pointer;
     background: none;
     padding-right: 10px;
+    width: 100%;
   }
 `;
 

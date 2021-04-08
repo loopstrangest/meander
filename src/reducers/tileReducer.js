@@ -147,6 +147,11 @@ const tileReducer = (state = randomPattern, action) => {
         ...state,
         borderWidth: action.payload.borderWidth,
       };
+    case "SET_BORDER_COLOR":
+      return {
+        ...state,
+        borderColor: action.payload.borderColor,
+      };
     case "SET_FILL_STYLE":
       return {
         ...state,
@@ -200,10 +205,11 @@ const tileReducer = (state = randomPattern, action) => {
         defaultParameters: action.payload.randomPattern.defaultParameters,
         tiling: action.payload.randomPattern.tiling,
         polygons: action.payload.randomPattern.polygons,
-        borderWidth: 0,
+        borderWidth: action.payload.randomPattern.borderWidth,
+        borderColor: action.payload.randomPattern.borderColor,
         fillStyle: action.payload.randomPattern.fillStyle,
         colors: action.payload.randomPattern.colors,
-        randomSolidFill: [],
+        randomSolidFill: action.payload.randomPattern.randomSolidFill,
         linearGradientOptions:
           action.payload.randomPattern.linearGradientOptions,
         linearGradient: action.payload.randomPattern.linearGradient,

@@ -52,19 +52,19 @@ const Explainer = () => {
     <ExplainerShadow onClick={toggleExplainer}>
       <Information>
         <p class="about">
-          Meander lets you create custom wallpapers for your digital device.
+          Meander lets you generate and customize cool patterned backgrounds.
         </p>
         <hr />
         <p>{pattern} Choose the pattern to display.</p>
 
-        <p>{border} Change the border thickness of each shape.</p>
+        <p>{border} Change the border color and thickness of each shape.</p>
         <p>
           {sliders} Stretch and compress the shapes in various directions. The
           small patterns above each slider show how the slider affects the
           displayed pattern.
         </p>
         <p>
-          {colors} Change pattern colors and add visual effects:
+          {colors} Change the pattern colors and visual effects:
           <br />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{solid} Default solid fill
           <br />
@@ -110,7 +110,7 @@ const ExplainerShadow = styled(motion.div)`
   width: 100%;
   display: flex;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -150,10 +150,9 @@ const Information = styled(motion.div)`
   }
 
   .textIcon {
-    width: 2vw;
-    height: 2vh;
-    min-height: 16px;
-    min-width: 16px;
+    width: 18px;
+    height: 18px;
+    top: 1px;
   }
 
   .links,

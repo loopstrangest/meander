@@ -1,6 +1,15 @@
 import { TilerTheCreator } from "../canvas_modules/TilerTheCreator/TilerTheCreator.js";
+import { getRandomSolidFill } from "../scripts/getRandomSolidFill.js";
+import { getRandomLinearGradient } from "../scripts/getRandomLinearGradient.js";
 
-export function getRandomPattern(chosenColors) {
+export function getRandomPattern(
+  userColors,
+  userBorderWidth,
+  userBorderColor,
+  userFillStyle,
+  userBlur,
+  userGrain
+) {
   var size = 3000;
   var scaleFactor = 50;
   var selectedTypes = [3, 6, 19, 22, 25, 26, 28, 43, 49, 69, 75];
@@ -82,15 +91,25 @@ export function getRandomPattern(chosenColors) {
   };
 
   var colors = ["#003049", "#d62828", "#f77f00", "#fcbf49", "#eae2b7"];
-  if (chosenColors) {
-    colors = chosenColors;
-  }
+  var borderWidth = 0;
+  var borderColor = "#000000";
+  var fillStyle = "gradient";
+  var blur = 2;
+  var grain = 0.25;
+  var randomSolidFill = [];
+
+  //handle user preferences
+  colors = userColors ? userColors : colors;
+  borderWidth = userBorderWidth ? userBorderWidth : borderWidth;
+  borderColor = userBorderColor ? userBorderColor : borderColor;
+  fillStyle = userFillStyle ? userFillStyle : fillStyle;
+  blur = userBlur ? userBlur : blur;
+  grain = userGrain ? userGrain : grain;
 
   var randomSelectedTypesIndex = Math.floor(
     Math.random() * selectedTypes.length
   );
   var randomType = selectedTypes[randomSelectedTypesIndex];
-  //var initialChosenType = 3;
 
   //Set random tiling
   var randomPrototile = new TilerTheCreator({
@@ -120,11 +139,8 @@ export function getRandomPattern(chosenColors) {
 
   var gradientOptions = linearGradients[randomType];
 
-  var randomGradient =
-    gradientOptions[Math.floor(Math.random() * gradientOptions.length)];
-  if (Math.floor(Math.random() * 2) === 1) {
-    randomGradient.reverse();
-  }
+  var randomSolidFill = getRandomSolidFill(randomPolygons, colors);
+  var randomGradient = getRandomLinearGradient(gradientOptions);
 
   const randomPattern = {
     width: size,
@@ -135,14 +151,15 @@ export function getRandomPattern(chosenColors) {
     defaultParameters: defaultParameters,
     tiling: randomPrototile.getCurrentTiling(),
     polygons: randomPolygons,
-    borderWidth: 0,
-    fillStyle: "solid",
+    borderWidth: borderWidth,
+    borderColor: borderColor,
+    fillStyle: fillStyle,
     colors: colors,
-    randomSolidFill: [],
+    randomSolidFill: randomSolidFill,
     linearGradientOptions: linearGradients,
     linearGradient: randomGradient,
-    blur: 2,
-    grain: 0.25,
+    blur: blur,
+    grain: grain,
     gettingRandomPattern: false,
   };
 
