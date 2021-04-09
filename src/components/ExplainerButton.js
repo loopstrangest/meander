@@ -1,17 +1,8 @@
 //redux and routes
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateTab } from "../actions/menuAction";
+import { useDispatch } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSlidersH,
-  faBorderAll,
-  faGripLinesVertical,
-  faPalette,
-  faFileDownload,
-  faQuestion,
-} from "@fortawesome/free-solid-svg-icons";
+import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 //styling and animation
 import styled from "styled-components";

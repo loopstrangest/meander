@@ -42,9 +42,7 @@ const TilingControls = () => {
     <StyledTilingControls id="tilingOptions">
       {allPolygons.map((polygons, index) => {
         let setup = (p5, parentClass) => {
-          let canvas = p5
-            .createCanvas(canvasSize, canvasSize)
-            .parent(parentClass);
+          p5.createCanvas(canvasSize, canvasSize).parent(parentClass);
         };
         let draw = (p5) => {
           p5.strokeWeight(1);

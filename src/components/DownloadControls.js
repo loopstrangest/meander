@@ -1,6 +1,3 @@
-//redux and routes
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import domtoimage from "dom-to-image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,19 +13,21 @@ const DownloadControls = () => {
     if (width < 100 || width > 2500 || height < 100 || height > 2500) {
       return;
     }
+
+    var pixelMargin = 4;
     var divToDownload = document.querySelector(".styledCanvas");
+
     domtoimage
       .toJpeg(divToDownload, {
         width: width,
         height: height,
         style: {
-          marginLeft: "-4px",
-          marginTop: "-4px",
+          margin: `-${pixelMargin}px 0 0 -${pixelMargin}px`,
         },
       })
       .then(function (dataUrl) {
         var link = document.createElement("a");
-        link.download = ".jpg";
+        link.download = `.jpg`;
         link.href = dataUrl;
         link.click();
         link.remove();

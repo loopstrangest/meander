@@ -5,11 +5,8 @@
  * v0.0.1
  */
 export const createGrain = function () {
-  "use strict";
-
   const grained = (ele, opt) => {
     var element = null,
-      elementId = null,
       selectorElement = null;
 
     if (typeof ele === "string") {
@@ -23,8 +20,6 @@ export const createGrain = function () {
     if (!element) {
       console.error("Grained: cannot find the element: " + ele);
       return;
-    } else {
-      elementId = element.id;
     }
 
     //set style for parent
@@ -35,7 +30,7 @@ export const createGrain = function () {
     element.style.overflow = "hidden";
     */
 
-    var prefixes = ["", "-moz-", "-o-animation-", "-webkit-", "-ms-"];
+    //var prefixes = ["", "-moz-", "-o-animation-", "-webkit-", "-ms-"];
 
     //default option values
     var options = opt;
@@ -143,13 +138,6 @@ export const createGrain = function () {
     /*
     var rule =
       'position: absolute;content: "";height: 100%;width: 100%;left: 0%;top: 0%;z-index: 1';
-    */
-    //var rule = 'position: absolute;content: "";left: 0%;top: 0%;z-index: 1';
-    var rule = "";
-    //rule = "z-index: 1";
-    var pre = prefixes.length;
-
-    /*
     if (options.animate) {
       while (pre--) {
         rule += prefixes[pre] + "animation-name:grained;";
@@ -165,10 +153,7 @@ export const createGrain = function () {
     }
     */
 
-    //selecter element to add grains
-    //selectorElement = "." + ele + "::before";
     selectorElement = "." + ele;
-    var grainScriptDiv = document.getElementById("grainScript");
     var styleSheet = document.getElementsByClassName("grainStylesheet")[0];
     if (!styleSheet) {
       //Add initial stylesheet
@@ -176,7 +161,7 @@ export const createGrain = function () {
       style.type = "text/css";
       style.className = "grainStylesheet";
       document.body.appendChild(style);
-      addCSSRule(style.sheet, selectorElement, bgRule + rule);
+      addCSSRule(style.sheet, selectorElement, bgRule);
     } else {
       //Update stylesheet
       styleSheet.sheet.cssRules[0].style.backgroundImage = "url(" + noise + ")";

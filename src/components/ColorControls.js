@@ -61,9 +61,9 @@ const ColorControls = () => {
 
   const handleFillStyleChange = (e) => {
     var fillStyle = e.currentTarget.id;
-    if (fillStyle == "randomSolid") {
+    if (fillStyle === "randomSolid") {
       dispatch(updateRandomSolidFill(polygons, colors));
-    } else if (fillStyle == "gradient") {
+    } else if (fillStyle === "gradient") {
       dispatch(updateLinearGradient(linearGradientOptions[type]));
     }
     dispatch(updateFillStyle(fillStyle));

@@ -50,7 +50,7 @@ const ParamControls = () => {
   let controls = [];
   tiling.getParameters().forEach((param, index) => {
     let setup = (p5, parentClass) => {
-      let canvas = p5.createCanvas(50, 50).parent(parentClass);
+      p5.createCanvas(50, 50).parent(parentClass);
     };
 
     let drawLeft = (p5) => {

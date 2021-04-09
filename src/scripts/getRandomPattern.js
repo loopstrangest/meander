@@ -96,7 +96,6 @@ export function getRandomPattern(
   var fillStyle = "gradient";
   var blur = 2;
   var grain = 0.25;
-  var randomSolidFill = [];
 
   //handle user preferences
   colors = userColors ? userColors : colors;

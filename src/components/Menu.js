@@ -1,5 +1,4 @@
 //redux and routes
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTab } from "../actions/menuAction";
 import { updateRandomPattern } from "../actions/tileAction";
@@ -79,6 +78,8 @@ const Menu = () => {
       case "download": {
         return <DownloadControls />;
       }
+      default:
+        return <TilingControls />;
     }
   };
 

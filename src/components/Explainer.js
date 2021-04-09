@@ -15,9 +15,6 @@ import {
   faTint,
   faWaveSquare,
   faGlasses,
-  faPlus,
-  faMinus,
-  faCheck,
   faRandom,
   faBreadSlice,
   faSyncAlt,
@@ -52,7 +49,7 @@ const Explainer = () => {
     <ExplainerShadow onClick={toggleExplainer}>
       <Information>
         <p class="about">
-          Meander lets you generate and customize cool patterned backgrounds.
+          Meander lets you create and customize colorful patterned backgrounds.
         </p>
         <hr />
         <p>{pattern} Choose the pattern to display.</p>

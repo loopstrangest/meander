@@ -1,5 +1,4 @@
 //redux and routes
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBorder, updateBorderColor } from "../actions/tileAction";
 

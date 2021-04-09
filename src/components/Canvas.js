@@ -23,9 +23,7 @@ const Canvas = () => {
     randomSolidFill,
     blur,
     grain,
-    gettingRandomPattern,
   } = useSelector((state) => state.tile);
-  const { tab } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
 
   var grainOptions = {
@@ -53,7 +51,7 @@ const Canvas = () => {
 
   //SETUP
   let setup = (setup, parentClass) => {
-    let canvas = setup.createCanvas(width, height).parent(parentClass);
+    setup.createCanvas(width, height).parent(parentClass);
     setBlurGrain();
   };
 
